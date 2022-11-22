@@ -7,7 +7,7 @@ const handleSignin = async (req, res, query, bcrypt) => {
   try {
     query.equalTo("email", email);
 
-    const object = query.first();
+    const object = await query.first();
 
     if (object === null) {
       return res.status(400).json("unable to get user");
