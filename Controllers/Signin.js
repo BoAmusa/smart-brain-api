@@ -17,6 +17,8 @@ const handleSignin = async (req, res, query, bcrypt) => {
 
     if (isValid) {
       return res.json(object);
+    } else {
+      return res.json("Error signing in ");
     }
   } catch (error) {
     return res.status(400).json("wrong credentials");

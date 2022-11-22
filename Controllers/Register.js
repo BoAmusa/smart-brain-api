@@ -4,6 +4,14 @@ const handleRegister = async (req, res, db, bcrypt) => {
     return res.status(400).json("incorrect form submission");
   }
 
+  const query = new Parse.Query("smartbrain_db");
+
+  query.equalTo("email", email);
+
+  const user = await query.first();
+
+  if (user.exists) return res.status(403).json("User already exists");
+
   const hash = bcrypt.hashSync(password);
 
   db.set("name", name);
@@ -14,10 +22,10 @@ const handleRegister = async (req, res, db, bcrypt) => {
     let result = await db.save();
 
     if (result !== null) {
-      return res.status(200).json("User created with success!");
+      return res.status(200).json(result);
     }
   } catch (error) {
-    return res.status(500).json("User already exists \t" + result);
+    return res.status(500).json("Error registering user \t" + error);
   }
 };
 
