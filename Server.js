@@ -7,6 +7,7 @@ const signin = require("./Controllers/Signin");
 const profile = require("./Controllers/Profile");
 const image = require("./Controllers/Image");
 const Parse = require("parse/node");
+const cors = require("cors");
 
 Parse.serverURL = "https://parseapi.back4app.com"; // This is your Server URL
 // Remember to inform BOTH the Back4App Application ID AND the JavaScript KEY
@@ -20,6 +21,7 @@ const db = new Parse.Object("smartbrain_db");
 const query = new Parse.Query("smartbrain_db");
 
 app.use(bodyParser.json());
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
