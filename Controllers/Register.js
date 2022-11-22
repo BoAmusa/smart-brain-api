@@ -1,18 +1,18 @@
 const Parse = require("parse/node");
 
-const handleRegister = async (req, res, db, bcrypt) => {
+const handleRegister = async (req, res, db, bcrypt, tableObject) => {
   const { email, name, password } = req.body;
   if (!email || !name || !password) {
     return res.status(400).json("incorrect form submission");
   }
 
-  const query = new Parse.Query("smartbrain_db");
+  const query = new Parse.Query(tableObject);
 
   query.equalTo("email", email);
 
   const user = await query.first();
 
-  if (user !== null) return res.status(403).json("User already exists");
+  if (user !== undefined) return res.status(403).json("User already exists");
 
   const hash = bcrypt.hashSync(password);
 

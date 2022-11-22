@@ -9,7 +9,7 @@ const handleSignin = async (req, res, query, bcrypt) => {
 
     const object = await query.first();
 
-    if (object === null) {
+    if (object === undefined || object === null) {
       return res.status(400).json("unable to get user");
     }
 

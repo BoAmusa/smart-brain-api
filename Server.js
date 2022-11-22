@@ -8,6 +8,7 @@ const profile = require("./Controllers/Profile");
 const image = require("./Controllers/Image");
 const Parse = require("parse/node");
 const cors = require("cors");
+const TABLE_NAME = "smartbrain_db";
 
 Parse.serverURL = "https://parseapi.back4app.com"; // This is your Server URL
 // Remember to inform BOTH the Back4App Application ID AND the JavaScript KEY
@@ -17,8 +18,8 @@ Parse.initialize(
   process.env.B4MASTER_KEY // This is your Master key (never use it in the frontend)
 );
 
-const db = new Parse.Object("smartbrain_db");
-const query = new Parse.Query("smartbrain_db");
+const db = new Parse.Object(TABLE_NAME);
+const query = new Parse.Query(TABLE_NAME);
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -49,5 +50,5 @@ app.post("/signin", (req, res) => {
 });
 
 app.post("/register", (req, res) => {
-  register.handleRegister(req, res, db, bcrypt);
+  register.handleRegister(req, res, db, bcrypt, TABLE_NAME);
 });
