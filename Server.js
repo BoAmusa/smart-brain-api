@@ -34,15 +34,17 @@ app.put("/image", (req, res) => {
   image.handleImagePut(req, res, db);
 });
 
-app.post("/imageurl", async (req, res) => {
+app.post("/imageurl", (req, res) => {
   image.handleApiCall(req, res);
 });
 
 app.listen(process.env.PORT || 3000, () => {
-  console.log(`app is running on port ${process.env.PORT}`);
+  console.log(`app is running on port ${process.env.PORT || 3000}`);
 });
 
-app.post("/signin", signin.handleSignin(query, bcrypt));
+app.post("/signin", (req, res) => {
+  signin.handleSignin(req, res, query, bcrypt);
+});
 
 app.post("/register", (req, res) => {
   register.handleRegister(req, res, db, bcrypt);
