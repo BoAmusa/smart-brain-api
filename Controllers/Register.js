@@ -12,7 +12,8 @@ const handleRegister = async (req, res, db, bcrypt) => {
 
   const user = await query.first();
 
-  if (user.get("email")) return res.status(403).json("User already exists");
+  if (user !== null && user.get("email"))
+    return res.status(403).json("User already exists");
 
   const hash = bcrypt.hashSync(password);
 
