@@ -10,7 +10,7 @@ const handleProfileGet = async (req, res, query) => {
       res.json(user);
     }
   } catch (err) {
-    res.status(400).json("error getting user");
+    res.status(400).json("error getting user \t" + err);
   }
 };
 

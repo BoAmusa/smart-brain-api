@@ -1,3 +1,5 @@
+const Parse = require("parse/node");
+
 const handleRegister = async (req, res, db, bcrypt) => {
   const { email, name, password } = req.body;
   if (!email || !name || !password) {
