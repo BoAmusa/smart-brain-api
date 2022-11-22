@@ -1,19 +1,19 @@
-const handleProfileGet = (req, res, db) => {
-  const { id } = req.params;
-  let found = false;
-  db.select("*")
-    .from("users")
-    .where({ id })
-    .then(user => {
-      if (user.length) {
-        res.json(user[0]);
-      } else {
-        res.status(400).json("Not found");
-      }
-    })
-    .catch(err => res.status(400).json("error getting user"));
+const handleProfileGet = async (req, res, query) => {
+  const { email } = req.params;
+
+  try {
+    query.equalTo("email", email);
+
+    const user = await query.first();
+
+    if (user.isDataAvailable) {
+      res.json(user);
+    }
+  } catch (err) {
+    res.status(400).json("error getting user");
+  }
 };
 
 module.exports = {
-  handleProfileGet
+  handleProfileGet,
 };
