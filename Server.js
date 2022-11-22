@@ -26,7 +26,7 @@ app.get("/", (req, res) => {
   res.sendFile("index.html");
 });
 
-app.get("/profile/:id", (req, res) => {
+app.get("/profile/:email", (req, res) => {
   profile.handleProfileGet(req, res, query);
 });
 
