@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-  res.sendFile("index.html");
+  res.sendFile(__dirname + "/index.html");
 });
 
 app.get("/profile/:email", (req, res) => {
