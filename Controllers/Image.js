@@ -24,6 +24,7 @@ const handleImagePut = async (req, res, query) => {
     if (user.isDataAvailable) {
       updateUser(user);
     }
+    return res.status(200).json("Success!!");
   } catch (error) {
     res.status(400).json("unable to get entries \t" + error);
   }
