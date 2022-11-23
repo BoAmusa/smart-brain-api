@@ -34,7 +34,7 @@ app.get("/profile/:email", (req, res) => {
 });
 
 app.put("/image", (req, res) => {
-  image.handleImagePut(req, res, db);
+  image.handleImagePut(req, res, query);
 });
 
 app.post("/imageurl", (req, res) => {
