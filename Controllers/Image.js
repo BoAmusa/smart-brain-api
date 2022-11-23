@@ -15,7 +15,7 @@ const handleApiCall = async (req, res) => {
 
 const handleImagePut = async (req, res, query) => {
   const { email } = req.body;
-
+  console.log("Email \t" + email);
   try {
     query.equalTo("email", email);
 
@@ -25,14 +25,14 @@ const handleImagePut = async (req, res, query) => {
       updateUser(user);
     }
   } catch (error) {
-    res.status(400).json("unable to get entries");
+    res.status(400).json("unable to get entries \t" + error);
   }
 };
 
-function updateUser(userFound) {
+async function updateUser(userFound) {
   const entriesCount = userFound.get("entries");
   userFound.set("entries", entriesCount + 1);
-  userFound.save();
+  await userFound.save();
 }
 
 module.exports = {
