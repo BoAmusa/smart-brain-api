@@ -14,7 +14,7 @@ const handleApiCall = async (req, res) => {
 };
 
 const handleImagePut = async (req, res, query) => {
-  const { email } = req.body;
+  const { email, image } = req.body;
   console.log("Email \t" + email);
   try {
     query.equalTo("email", email);
@@ -22,7 +22,7 @@ const handleImagePut = async (req, res, query) => {
     let user = await query.first();
 
     if (user.isDataAvailable) {
-      updateUser(user);
+      updateUser(user, image);
     }
     return res.status(200).json("Success!!");
   } catch (error) {
@@ -30,9 +30,10 @@ const handleImagePut = async (req, res, query) => {
   }
 };
 
-async function updateUser(userFound) {
+async function updateUser(userFound, imageLink) {
   const entriesCount = userFound.get("entries");
   userFound.set("entries", entriesCount + 1);
+  userFound.set("imageLink", imageLink);
   await userFound.save();
 }
 
